@@ -1,0 +1,329 @@
+<!--
+    Powered By nodeppt - This is probably the best web presentation tool so far!
+    version: 1.4.5
+    site: https://github.com/ksky521/nodeppt
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>graphql - By zhuchongyue@baidu.com</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>GraphQL</h1>
+<h2>一种用于 API 的查询语言</h2>
+<h2>演讲者：zhuchongyue@baidu.com</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>引子</h1>
+<ul>
+<li>你难道没有遇到过？<ul class="moveIn">
+<li>到了联调阶段发现RD返回的数据结构跟预定完全不一样？</li>
+<li>前端组件化后，数据结构固定，接口数据对不上？</li>
+<li>同一套API兼容多端带回冗余数据？</li>
+<li>接口扁平化支持不好？</li>
+<li>接口升级<ul>
+<li><a href="https://xxx.com/path/v1/someapi.json" target="_blank">https://xxx.com/path/v1/someapi.json</a><ul>
+<li><a href="https://xxx.com/path/v2/someapi.json" target="_blank">https://xxx.com/path/v2/someapi.json</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>What&#39;s GraphQL?</h1>
+<h2>定义</h2>
+<ul>
+<li>GraphQL 既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>What&#39;s GraphQL?</h1>
+<h3>一图胜千言</h3>
+<img src="./img/graphql1.png" alt="graphql">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>What&#39;s GraphQL?</h1>
+ <style type="text/css">
+    .faux-graphiql::before {
+        background: linear-gradient(#f0f0f0, #dedede);
+        border-radius: 6px 6px 0 0;
+        box-shadow: inset 0 2px 2px -2px white, 0 1px rgba(0, 0, 0, 0.4);
+        content: ' ';
+        display: block;
+        height: 25px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+     .faux-graphiql {
+
+      margin: 0 auto;
+        background: white;
+        border-radius: 6px 6px 0 0;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 8px 32px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        padding-top: 26px;
+        position: relative;
+
+       width: 440px;
+       height: 330px;
+       display: flex;
+       flex-direction: column;
+       pointer-events: none;
+     }
+      .faux-graphiql .query,
+      .faux-graphiql .response {
+       flex: 1;
+     }
+      .faux-graphiql .query {
+       border-bottom: solid 5px #e0e0e0;
+     }
+      .faux-graphiql .cursor {
+       width: 7px;
+       height: 15px;
+       background-color: #d0d0d0;
+       display: inline-block;
+       margin: -1px 1px -3px;
+       animation: cursor-blink 0.5s infinite linear both alternate;
+     }
+     @keyframes cursor-blink {
+       0%,
+       30% {
+         opacity: 0;
+       }
+       70%,
+       100% {
+         opacity: 1;
+       }
+     }
+      .faux-graphiql .ch {
+       display: none;
+     }
+
+     .prism {
+         padding: 1ch;
+         font-family: 'Roboto Mono', Menlo, Monaco, monospace;
+         font-weight: 400;
+         color: #202020;
+         font-size: 13px;
+         line-height: 17px;
+         direction: ltr;
+         text-align: left;
+         white-space: pre;
+         word-spacing: normal;
+         word-break: normal;
+         -moz-tab-size: 2;
+         -o-tab-size: 2;
+         tab-size: 2;
+         -webkit-hyphens: none;
+         -moz-hyphens: none;
+         -ms-hyphens: none;
+         hyphens: none;
+         position: relative;
+     }
+ </style>
+
+<p> <div class="faux-graphiql">
+    <div class="query">
+     <pre class="prism">{
+  hero {
+    name<span id="ch0" class="ch"><br /></span><span id="ch1" class="ch"> </span><span id="ch2" class="ch"> </span><span id="ch3" class="ch"> </span><span id="ch4" class="ch"> </span><span id="ch5" class="ch">h</span><span id="ch6" class="ch">e</span><span id="ch7" class="ch">i</span><span id="ch8" class="ch">g</span><span id="ch9" class="ch">h</span><span id="ch10" class="ch">t</span><span id="ch11" class="ch"><br /></span><span id="ch12" class="ch"> </span><span id="ch13" class="ch"> </span><span id="ch14" class="ch"> </span><span id="ch15" class="ch"> </span><span id="ch16" class="ch">m</span><span id="ch17" class="ch">a</span><span id="ch18" class="ch">s</span><span id="ch19" class="ch">s</span><span class="cursor"></span>
+  }
+}</pre>
+    </div>
+    <div class="response">
+     <div id="r1">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+     <div id="r2">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1.72</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+     <div id="r3">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1.72</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;mass&quot;</span><span class="punctuation">:</span> <span class="number">77</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+    </div>
+</div></p>
+<script type="text/javascript">
+    (function(){
+          var i = 0;
+          var forward = true;
+          setTimeout(type, 2000);
+          showResponse(1);
+          function type() {
+            if (forward) {
+              document.getElementById('ch' + i).style.display = 'inline';
+              i++;
+              if (i === 20) {
+                forward = false;
+                showResponse(3);
+                setTimeout(type, 1500);
+              } else if (i === 11) {
+                showResponse(2);
+                setTimeout(type, 1500);
+              } else {
+                setTimeout(type, Math.random() * 180 + 70);
+              }
+            } else {
+              i--;
+              document.getElementById('ch' + i).style.display = 'none';
+              if (i === 0) {
+                forward = true;
+                showResponse(1);
+                setTimeout(type, 2000);
+              } else {
+                setTimeout(type, 80);
+              }
+            }
+          }
+          function showResponse(num) {
+            document.getElementById('r1').style.display = num === 1 ? 'block' : 'none';
+            document.getElementById('r2').style.display = num === 2 ? 'block' : 'none';
+            document.getElementById('r3').style.display = num === 3 ? 'block' : 'none';
+          }
+        })()
+</script>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Why GraphQL?</h1>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h1>How to use GraphQL?</h1>
+<h1>封面样式2</h1>
+<h2>左对齐</h2>
+
+</article></section></slide>
+<slide class="slide fill" style="background-image:url('./img/graphql1.png')"><section class="slide-wrapper"><article>
+<h2>使用背景</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>使用.class/#id/自定义属性样式</h2>
+
+</hgroup><article>
+
+<pre><code class="javascript">alert(&#39;nodeppt&#39;);
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>主页面样式</h2>
+<h3>----是上下分界线</h3>
+
+</hgroup><article>
+
+<p>nodeppt是基于nodejs写的支持 <strong>Markdown!</strong> 语法的网页PPT，当前版本：1.4.5</p>
+<p>Github：<a href="https://github.com/ksky521/nodeppt" target="_blank">https://github.com/ksky521/nodeppt</a></p>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodeppt v1.4.5</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+    var ASSET_RELATIVE_DIR = ".";
+</script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+if (typeof ASSET_RELATIVE_DIR === 'string') {
+    path = path + '/' + ASSET_RELATIVE_DIR;
+}
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'cards',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+
+
+<!--placeholder-->
+</body>
+</html>

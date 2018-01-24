@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>GraphQL | A query language for your API</title>
+ </head>
+ <body class="index">
+  
+  <section class="point1" id="predictable-results">
+  
+   <div class="window faux-graphiql" aria-hidden="true">
+    <div class="query">
+     <pre class="prism">{
+  hero {
+    name<span id="ch0" class="ch"><br /></span><span id="ch1" class="ch"> </span><span id="ch2" class="ch"> </span><span id="ch3" class="ch"> </span><span id="ch4" class="ch"> </span><span id="ch5" class="ch">h</span><span id="ch6" class="ch">e</span><span id="ch7" class="ch">i</span><span id="ch8" class="ch">g</span><span id="ch9" class="ch">h</span><span id="ch10" class="ch">t</span><span id="ch11" class="ch"><br /></span><span id="ch12" class="ch"> </span><span id="ch13" class="ch"> </span><span id="ch14" class="ch"> </span><span id="ch15" class="ch"> </span><span id="ch16" class="ch">m</span><span id="ch17" class="ch">a</span><span id="ch18" class="ch">s</span><span id="ch19" class="ch">s</span><span class="cursor"></span>
+  }
+}</pre>
+    </div>
+    <div class="response">
+     <div id="r1">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+     <div id="r2">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1.72</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+     <div id="r3">
+      <pre class="prism language-json"><span class="punctuation">{</span>
+  <span class="attr-name">&quot;hero&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="attr-name">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Luke Skywalker&quot;</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1.72</span><span class="punctuation">,</span>
+    <span class="attr-name">&quot;mass&quot;</span><span class="punctuation">:</span> <span class="number">77</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span></pre>
+     </div>
+    </div>
+    <script>(function(){
+          var i = 0;
+          var forward = true;
+          setTimeout(type, 2000);
+          showResponse(1);
+          function type() {
+            if (forward) {
+              document.getElementById('ch' + i).style.display = 'inline';
+              i++;
+              if (i === 20) {
+                forward = false;
+                showResponse(3);
+                setTimeout(type, 1500);
+              } else if (i === 11) {
+                showResponse(2);
+                setTimeout(type, 1500);
+              } else {
+                setTimeout(type, Math.random() * 180 + 70);
+              }
+            } else {
+              i--;
+              document.getElementById('ch' + i).style.display = 'none';
+              if (i === 0) {
+                forward = true;
+                showResponse(1);
+                setTimeout(type, 2000);
+              } else {
+                setTimeout(type, 80);
+              }
+            }
+          }
+          function showResponse(num) {
+            document.getElementById('r1').style.display = num === 1 ? 'block' : 'none';
+            document.getElementById('r2').style.display = num === 2 ? 'block' : 'none';
+            document.getElementById('r3').style.display = num === 3 ? 'block' : 'none';
+          }
+        })()</script>
+   </div>
+  </section>
+  
